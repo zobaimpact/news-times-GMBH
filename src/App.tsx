@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import NewYorkTimes from "./components/News/NewYork/index";
+import GuardianNews from "./components/News/Guardian/index";
 import NewsApi from "./components/News/NewsApi/index";
 import NavBar from "./components/Navbar/index";
 
@@ -13,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<NewYorkTimes />} />
           <Route path="/new-api" element={<NewsApi />} />
-          <Route path="/bbc-news" element={<NewYorkTimes />} />
+          <Route path="/guardian-news" element={<GuardianNews />} />
           <Route path="*" element={<h2 className="text-center text-red-500">404 - Page Not Found</h2>} />
         </Routes>
       </div>

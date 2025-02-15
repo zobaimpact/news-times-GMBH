@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store/configureStore";
-import { fetchNewsApi } from "../../redux/slice/newsSlice";
-import Card from "../Card/index";
-import { Loader } from "../Loader";
+import { AppDispatch, RootState } from "../../../redux/store/configureStore";
+import { fetchNewYorkTimes } from "../../../redux/slice/newsSlice";
+import Card from "../../Card/index";
+import { Loader } from "../../Loader";
 
-const News = () => {
+const NewYorkTimes = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const { articles, status, error } = useSelector(
@@ -13,7 +13,7 @@ const News = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchNewsApi());
+    dispatch(fetchNewYorkTimes());
   }, [dispatch]);
 
   return (
@@ -27,4 +27,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default NewYorkTimes;

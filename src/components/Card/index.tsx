@@ -2,16 +2,14 @@ import React from "react";
 import { Card, CardBody, CardFooter, Image } from "@heroui/react";
 import { NewsArticle } from "../../redux/slice/newsSlice";
 
-// Define the props for CardComponent
 interface CardComponentProps {
   news: NewsArticle[];
 }
 
-// News Card Component
 const CardComponent: React.FC<CardComponentProps> = ({ news }) => {
   return (
     <div className="news_container">
-      {news.slice(0, 9).map((article, index) => (
+      {news.map((article, index) => (
         <Card
           key={article.url || index}
           isPressable
@@ -24,17 +22,20 @@ const CardComponent: React.FC<CardComponentProps> = ({ news }) => {
               className="w-full object-cover h-[140px]"
               radius="lg"
               shadow="sm"
-              src={article.urlToImage || "https://via.placeholder.com/150"} // Fallback image
+              src={article.urlToImage || "https://via.placeholder.com/150"} 
               width="100%"
             />
           </CardBody>
-          <CardFooter className="text-small flex flex-col">
-            <b>{article.title}</b>
-            {article.author && (
-              <p className="text-default-500">By {article.author}</p>
-            )}
+          <CardFooter className="p-4 flex flex-col">
+            <b className="text-lg">{article.title}</b>
+            {article.byline && <p className="text-gray-600">{article.byline}</p>}
+            {article.author && <p className="text-gray-500">By {article.author}</p>}
             <p className="text-xs text-gray-500">
-              {new Date(article.publishedAt).toLocaleDateString()}
+              {article.publishedAt
+                ? new Date(article.publishedAt).toLocaleDateString()
+                : article.published_date
+                ? new Date(article.published_date).toLocaleDateString()
+                : "Unknown date"}
             </p>
           </CardFooter>
         </Card>

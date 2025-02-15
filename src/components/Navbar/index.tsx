@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useLocation, Link} from "react-router-dom";
 import {
   Navbar,
   NavbarBrand,
@@ -7,9 +8,21 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Link,
-  Input
+  Input,
 } from "@heroui/react";
+
+// Define the menu item type
+interface MenuItem {
+  name: string;
+  path: string;
+}
+
+// Menu items list
+const menuItems: MenuItem[] = [
+  { name: "New York Times", path: "/" },
+  { name: "News API", path: "/new-api" },
+  { name: "Guardian News", path: "/guardian-news" },
+];
 
 type IconProps = {
   size?: number;
@@ -29,7 +42,13 @@ export const AcmeLogo: React.FC = () => (
   </svg>
 );
 
-export const SearchIcon: React.FC<IconProps> = ({ size = 24, strokeWidth = 1.5, width, height, ...props }) => (
+export const SearchIcon: React.FC<IconProps> = ({
+  size = 24,
+  strokeWidth = 1.5,
+  width,
+  height,
+  ...props
+}) => (
   <svg
     aria-hidden="true"
     fill="none"
@@ -58,20 +77,8 @@ export const SearchIcon: React.FC<IconProps> = ({ size = 24, strokeWidth = 1.5, 
 );
 
 const NavBar: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // Explicitly typed state
+  const location = useLocation(); // Get current route
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>
@@ -87,52 +94,35 @@ const NavBar: React.FC = () => {
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <NavbarItem>
-          <Link color="foreground" href="/features">
-            Features
-          </Link>
-        </NavbarItem>
-        <NavbarItem isActive>
-          <Link aria-current="page" href="#">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
+        {menuItems.map((item) => (
+          <NavbarItem key={item.path} isActive={location.pathname === item.path}>
+            <Link color="foreground" to={item.path}>
+              {item.name}
+            </Link>
+          </NavbarItem>
+        ))}
       </NavbarContent>
+
       <NavbarContent as="div" className="items-center" justify="end">
         <Input
           classNames={{
             base: "max-w-full sm:max-w-[20rem] h-10",
             mainWrapper: "h-full",
             input: "text-small",
-            inputWrapper: "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
+            inputWrapper:
+              "h-full font-normal text-default-500 bg-default-400/20 dark:bg-default-500/20",
           }}
           placeholder="Type to search..."
           size="sm"
-          startContent={<SearchIcon size={18} />}
           type="search"
         />
       </NavbarContent>
+
       <NavbarMenu>
-        {menuItems.map((item, index) => (
-          <NavbarMenuItem key={`${item}-${index}`}>
-            <Link
-              className="w-full"
-              color={
-                index === 2
-                  ? "primary"
-                  : index === menuItems.length - 1
-                  ? "danger"
-                  : "foreground"
-              }
-              href="#"
-              size="lg"
-            >
-              {item}
+        {menuItems.map((item) => (
+          <NavbarMenuItem key={item.path}>
+            <Link className="w-full" color="foreground" to={item.path}>
+              {item.name}
             </Link>
           </NavbarMenuItem>
         ))}
