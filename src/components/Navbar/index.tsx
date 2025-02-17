@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLocation, Link} from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import {
   Navbar,
   NavbarBrand,
@@ -86,15 +86,20 @@ const NavBar: React.FC = () => {
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           className="sm:hidden"
         />
-        <NavbarBrand>
-          <AcmeLogo />
-          <p className="font-bold text-inherit">BERLIN TIMES</p>
-        </NavbarBrand>
+        <Link to={"/"}>
+          <NavbarBrand>
+            <AcmeLogo />
+            <p className="font-bold text-inherit">GMBH News</p>
+          </NavbarBrand>
+        </Link>
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         {menuItems.map((item) => (
-          <NavbarItem key={item.path} isActive={location.pathname === item.path}>
+          <NavbarItem
+            key={item.path}
+            isActive={location.pathname === item.path}
+          >
             <Link color="foreground" to={item.path}>
               {item.name}
             </Link>

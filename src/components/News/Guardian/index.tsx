@@ -20,11 +20,19 @@ const TheGuardian: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div aria-labelledby="guardian-news">
+      <h2 id="guardian-news" className="sr-only">
+        The Guardian News
+      </h2>
       {articles && <NewsFilter source="guardian" />}
       <div className="columns-2xs">
+        {/* Display loader, error, or the news cards based on the current state */}
         {status === "loading" && <Loader />}
-        {status === "failed" && <p>Error: {error}</p>}
+        {status === "failed" && (
+          <p role="alert" className="text-red-600">
+            Error: {error}
+          </p>
+        )}
         {status === "succeeded" && articles && <Card news={articles} />}
       </div>
     </div>
