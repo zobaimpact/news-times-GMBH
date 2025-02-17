@@ -1,0 +1,8 @@
+node_modules
+.yarn
+.git
+.gitignore
+Dockerfile
+.dockerignore
+.vscode
+dist
