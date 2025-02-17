@@ -6,4 +6,15 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()
   ], 
+  server: {
+    port: 3000,
+    hmr: {
+      overlay: false,
+    },
+    host: true, // needed for the Docker Container port mapping to work
+    strictPort: true,
+  
+  },
 })
+
+
