@@ -22,12 +22,6 @@ export interface Filters {
   source: string | null;
 }
 
-// Define user preferences for a personalized news feed
-export interface Preferences {
-  sources: string[];
-  categories: string[];
-  authors: string[];
-}
 
 // Extend the state to include filters and preferences
 export interface NewsState {
@@ -35,7 +29,6 @@ export interface NewsState {
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   filters: Filters;
-  preferences: Preferences;
 }
 
 // Initial state with proper typing
@@ -49,11 +42,7 @@ const initialState: NewsState = {
     category: null,
     source: null,
   },
-  preferences: {
-    sources: [],
-    categories: [],
-    authors: [],
-  },
+
 };
 
 const NY_API_KEY = "82fdb1f391db40b28e8b0e7c5a17b05a"; 
@@ -224,58 +213,6 @@ export const searchArticles = createAsyncThunk<
   }
 );
 
-// Fetch personalized news based on user preferences (client-side filtering)
-export const fetchPersonalizedNews = createAsyncThunk<
-  NewsArticle[],
-  void,
-  { state: { news: NewsState }, rejectValue: string }
->(
-  "news/fetchPersonalizedNews",
-  async (_, { getState, rejectWithValue }) => {
-    try {
-      const response = await fetch(NEWS_API_URL);
-      if (!response.ok) {
-        return rejectWithValue("Failed to fetch articles");
-      }
-      const data = await response.json();
-      const allArticles: NewsArticle[] = data.articles.map((article: any) => ({
-        ...article,
-        urlToImage: article.urlToImage || "https://unsplash.com/photos/man-sitting-on-bench-reading-newspaper-_Zua2hyvTBk",
-      }));
-
-      const { preferences } = getState().news;
-      const filteredArticles = allArticles.filter((article) => {
-        let matches = true;
-        // Filter by preferred sources
-        if (preferences.sources.length > 0) {
-          const articleSource = article.source?.name.toLowerCase() || "";
-          if (!preferences.sources.some((pref) => articleSource.includes(pref.toLowerCase()))) {
-            matches = false;
-          }
-        }
-        // Filter by preferred categories (assuming article has a 'category' property)
-        if (preferences.categories.length > 0) {
-          const articleCategory = ((article as any).category || "").toLowerCase();
-          if (!preferences.categories.some((pref) => articleCategory.includes(pref.toLowerCase()))) {
-            matches = false;
-          }
-        }
-        // Filter by preferred authors
-        if (preferences.authors.length > 0) {
-          const articleAuthor = (article.author || "").toLowerCase();
-          if (!preferences.authors.some((pref) => articleAuthor.includes(pref.toLowerCase()))) {
-            matches = false;
-          }
-        }
-        return matches;
-      });
-      return filteredArticles;
-    } catch (error) {
-      return rejectWithValue("Something went wrong while fetching personalized news");
-    }
-  }
-);
-
 // Define the news slice with proper typings
 const newsSlice = createSlice({
   name: "news",
@@ -285,10 +222,7 @@ const newsSlice = createSlice({
     setFilters(state, action: PayloadAction<Filters>) {
       state.filters = action.payload;
     },
-    // Update user preferences for personalized feed
-    setPreferences(state, action: PayloadAction<Preferences>) {
-      state.preferences = action.payload;
-    },
+ 
   },
   extraReducers: (builder) => {
     builder
@@ -340,20 +274,9 @@ const newsSlice = createSlice({
         state.status = "failed";
         state.error = action.payload || "Something went wrong";
       })
-      // Personalized News Cases
-      .addCase(fetchPersonalizedNews.pending, (state) => {
-        state.status = "loading";
-      })
-      .addCase(fetchPersonalizedNews.fulfilled, (state, action: PayloadAction<NewsArticle[]>) => {
-        state.status = "succeeded";
-        state.articles = action.payload;
-      })
-      .addCase(fetchPersonalizedNews.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || "Something went wrong";
-      });
+    
   },
 });
 
-export const { setFilters, setPreferences } = newsSlice.actions;
+export const { setFilters } = newsSlice.actions;
 export default newsSlice.reducer;
