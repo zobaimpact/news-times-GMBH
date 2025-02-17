@@ -4,11 +4,16 @@
 .wrapper {
   width: 70%;
   margin: auto;
-  margin-top: 2rem;
   height: 100vh;
-  overflow: hidden;
   overflow-y: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
+
+.wrapper::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
 
 .news_container {
   max-width: 300px;
