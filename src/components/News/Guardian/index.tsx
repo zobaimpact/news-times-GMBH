@@ -20,11 +20,13 @@ const TheGuardian: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="columns-2xs">
+    <div>
       {articles && <NewsFilter source="guardian" />}
-      {status === "loading" && <Loader />}
-      {status === "failed" && <p>Error: {error}</p>}
-      {status === "succeeded" && articles && <Card news={articles} />}
+      <div className="columns-2xs">
+        {status === "loading" && <Loader />}
+        {status === "failed" && <p>Error: {error}</p>}
+        {status === "succeeded" && articles && <Card news={articles} />}
+      </div>
     </div>
   );
 };

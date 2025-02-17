@@ -21,12 +21,15 @@ const NewsApi: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="columns-2xs">
+    <div>
       {articles && <NewsFilter source="newsapi" />}
-      {/* Display loader, error, or the news cards based on the current state */}
-      {status === "loading" && <Loader />}
-      {status === "failed" && <p>Error: {error}</p>}
-      {status === "succeeded" && articles && <Card news={articles} />}
+
+      <div className="columns-2xs">
+        {/* Display loader, error, or the news cards based on the current state */}
+        {status === "loading" && <Loader />}
+        {status === "failed" && <p>Error: {error}</p>}
+        {status === "succeeded" && articles && <Card news={articles} />}
+      </div>
     </div>
   );
 };

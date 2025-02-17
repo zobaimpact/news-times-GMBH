@@ -19,7 +19,7 @@ const NewYorkTimes: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div className="">
+    <div>
       {articles && <NewsFilter source="nyt" />}
 
       <div className="columns-2xs">
