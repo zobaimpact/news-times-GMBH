@@ -48,3 +48,41 @@ export default tseslint.config({
   },
 })
 ```
+
+
+# News Times GMBH - Docker Setup
+
+## Prerequisites
+Ensure you have Docker and Docker Compose installed on your system.
+
+## Running the Application with Docker
+
+### 1. Build the Docker Image
+```sh
+docker build -t news-times-gmbh .
+```
+
+### 2. Run the Container
+```sh
+docker run -p 5173:5173 news-times-gmbh
+```
+
+Alternatively, using Docker Compose:
+
+```sh
+docker-compose up --build
+```
+
+### 3. Stopping the Container
+To stop the container, run:
+```sh
+docker-compose down
+```
+
+## Notes
+- The app runs on port `3000`, ensure this port is available.
+- For development, you can mount local files using volumes.
+
+Now, your application is successfully containerized and can be easily deployed!
+
+

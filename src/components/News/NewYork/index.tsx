@@ -19,12 +19,19 @@ const NewYorkTimes: React.FC = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <div aria-labelledby="news-york-times">
+      <h2 id="new-york-times" className="sr-only">
+        News York Times
+      </h2>
       {articles && <NewsFilter source="nyt" />}
 
       <div className="columns-2xs">
         {status === "loading" && <Loader />}
-        {status === "failed" && <p>Error: {error}</p>}
+        {status === "failed" && (
+          <p role="alert" className="text-red-600">
+            Error: {error}
+          </p>
+        )}
         {status === "succeeded" && articles && <Card news={articles} />}
       </div>
     </div>
