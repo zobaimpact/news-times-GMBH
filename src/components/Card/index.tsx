@@ -14,7 +14,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ article }) => {
   };
 
   return (
-    <Card isPressable shadow="sm" onPress={handleCardPress}>
+    <Card isPressable shadow="sm" onPress={handleCardPress} >
       <CardBody className="overflow-visible p-0">
         <Image
           alt={article.title}

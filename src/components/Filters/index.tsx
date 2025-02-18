@@ -58,13 +58,24 @@ const NewsFilter: React.FC<NewsFilterProps> = ({ source }) => {
   };
 
   return (
-    <div className="bg-white p-4 shadow-md sm:flex sm:items-center sm:justify-center gap-4 mb-auto">
+    <div className="bg-white p-4 sm:w-full sm:flex sm:items-center sm:justify-center gap-4 mb-auto w-full">
+        <h2 id="change-language" className="sr-only">
+        Change Language
+      </h2>
+      <select
+        value={language}
+        onChange={(e) => changeLanguage(e.target.value)}
+        className="bg-white rounded text-black p-2 mb-2 sm:mb-0 border w-full sm:w-auto"
+      >
+        <option value="en">English</option>
+        <option value="de">German</option>
+      </select>
       <form
         onSubmit={handleSubmit}
         className="flex flex-col sm:flex-row gap-4 w-full max-w-4xl mx-auto"
       >
         {Object.keys(formData).map((field) => (
-          <div key={field} className="w-full sm:w-auto">
+          <div key={field} className="w-full w-60 sm:w-auto">
             <Input
               name={field}
               value={formData[field as keyof typeof formData]}
@@ -84,23 +95,13 @@ const NewsFilter: React.FC<NewsFilterProps> = ({ source }) => {
           type="submit"
           variant="shadow"
           size="md"
-          className="bg-black rounded text-white p-4"
+          className="bg-black rounded text-white p-4 mb-4 sm:mb-0"
           disabled={isFormEmpty}
         >
           {t("apply")}
         </Button>
       </form>
-      <h2 id="change-language" className="sr-only">
-        Change Language
-      </h2>
-      <select
-        value={language}
-        onChange={(e) => changeLanguage(e.target.value)}
-        className="border rounded p-2 "
-      >
-        <option value="en">English</option>
-        <option value="de"> German</option>
-      </select>
+    
     </div>
   );
 };
