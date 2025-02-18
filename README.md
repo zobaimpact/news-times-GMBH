@@ -64,7 +64,7 @@ docker build -t news-times-gmbh .
 
 ### 2. Run the Container
 ```sh
-docker run -p 5173:5173 news-times-gmbh
+docker run -p 3000:3000 news-times-gmbh
 ```
 
 Alternatively, using Docker Compose:
@@ -76,7 +76,7 @@ docker-compose up --build
 ### 3. Stopping the Container
 To stop the container, run:
 ```sh
-docker-compose down
+docker stop <container-id>
 ```
 
 ## Notes
