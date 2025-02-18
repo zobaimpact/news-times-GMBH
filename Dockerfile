@@ -13,7 +13,7 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 # Expose the Vite development port
-EXPOSE 5173
+EXPOSE 3000
 
 # Build the application
 RUN yarn build

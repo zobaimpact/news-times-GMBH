@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
+
 import {
   Navbar,
   NavbarBrand,
@@ -78,6 +79,7 @@ export const SearchIcon: React.FC<IconProps> = ({
 const NavBar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // Explicitly typed state
   const location = useLocation(); // Get current route
+
 
   return (
     <Navbar onMenuOpenChange={setIsMenuOpen} isBordered>

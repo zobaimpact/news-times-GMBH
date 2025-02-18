@@ -5,6 +5,7 @@ import GuardianNews from "./components/News/Guardian/index";
 import NewsSearch from "./components/News/NewsSearch/index";
 import NewsApi from "./components/News/NewsApi/index";
 import NavBar from "./components/Navbar/index";
+import "./i18n";
 
 
 function App() {

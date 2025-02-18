@@ -6,6 +6,7 @@ import Card from "../../Card";
 import { Loader } from "../../Loader";
 import NewsFilter from "../../Filters";
 
+
 const NewsApi: React.FC = () => {
   // Use the typed dispatch for Redux actions
   const dispatch = useDispatch<AppDispatch>();

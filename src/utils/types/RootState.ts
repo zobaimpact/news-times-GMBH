@@ -1,7 +1,7 @@
-import { newsState } from '../../redux/slice/newsSlice';
+import { NewsState } from '../../redux/slice/newsSlice';
 
 
 export interface RootState {
-  news?: newsState;
+  news?: NewsState;
 
 }
