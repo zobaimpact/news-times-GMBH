@@ -39,6 +39,7 @@ const initialState: SearchNewsState = {
 };
 
 // API keys and endpoints for each news source
+// NOTE: Below API KEYS should be in the .env file in real world application
 const NYT_API_ENDPOINT =
   "https://api.nytimes.com/svc/search/v2/articlesearch.json?";
 const NYT_API_KEY = "api-key=5YG3TMerX8C874K6zOWTubPQutqm75ok";

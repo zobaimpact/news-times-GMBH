@@ -45,6 +45,8 @@ const initialState: NewsState = {
 
 };
 
+// NOTE: Below API KEYS should be in the .env file in real world application
+
 const NY_API_KEY = "82fdb1f391db40b28e8b0e7c5a17b05a"; 
 const NEWS_API_KEY = "5YG3TMerX8C874K6zOWTubPQutqm75ok"; 
 const GUARDIAN_API_KEY = "f4b554fb-ec83-4a2f-876d-0558ebeb063a"; 
